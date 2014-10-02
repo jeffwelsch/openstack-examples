@@ -5,6 +5,7 @@ from novaclient.v1_1 import client
 def get_client():
     username = os.getenv('OS_USERNAME')
     tenant_name = os.getenv('OS_TENANT_NAME')
+    tenant_id = os.getenv('OS_TENANT_ID')
     password = os.getenv('OS_PASSWORD')
     auth_url = os.getenv('OS_AUTH_URL')
 

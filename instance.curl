@@ -14,6 +14,6 @@ INSTANCE_ID=`curl -s $ENDPOINT/servers \
 -d '{"server": {"name": "'$INSTANCE_NAME'", "imageRef": "'$IMAGE'", "flavorRef": "'$FLAVOR'"}}' |cut -d '"' -f12` 
 
 echo -e "Instance ID:\t" $INSTANCE_ID
-curl $ENDPOINT/servers  -H "X-Auth-Token: $TOKEN" |python -m json.tool
+curl -s $ENDPOINT/servers  -H "X-Auth-Token: $TOKEN" |python -m json.tool
 echo "Deleting instance..."
-curl $ENDPOINT/servers/$INSTANCE_ID -X DELETE  -H "X-Auth-Project-Id: jeffwelsch-Home" -H "X-Auth-Token: $TOKEN"
+curl -s $ENDPOINT/servers/$INSTANCE_ID -X DELETE  -H "X-Auth-Project-Id: jeffwelsch-Home" -H "X-Auth-Token: $TOKEN"
