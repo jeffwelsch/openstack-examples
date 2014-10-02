@@ -1,0 +1,19 @@
+#!/usr/bin/env bash 
+
+source helper.curl
+
+INSTANCE_NAME="test_instance"
+IMAGE="6c1f5c16-4315-4f5d-a837-732c547b5cc6"
+FLAVOR="n1.small"
+
+INSTANCE_ID=`curl -s $ENDPOINT/servers \
+-X POST -H "X-Auth-Project-Id: $TENANT_ID" \
+-H "Content-Type: application/json" \
+-H "Accept: application/json" \
+-H "X-Auth-Token: $TOKEN" \
+-d '{"server": {"name": "'$INSTANCE_NAME'", "imageRef": "'$IMAGE'", "flavorRef": "'$FLAVOR'"}}' |cut -d '"' -f12` 
+
+echo -e "Instance ID:\t" $INSTANCE_ID
+curl $ENDPOINT/servers  -H "X-Auth-Token: $TOKEN" |python -m json.tool
+echo "Deleting instance..."
+curl $ENDPOINT/servers/$INSTANCE_ID -X DELETE  -H "X-Auth-Project-Id: jeffwelsch-Home" -H "X-Auth-Token: $TOKEN"
